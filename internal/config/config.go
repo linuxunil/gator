@@ -27,7 +27,6 @@ func (c *Config) SetUser(usr string) error {
 }
 func getConfigFilePath() (string, error) {
 	dir, dirErr := os.UserHomeDir()
-	dir += "/.config"
 	if dirErr != nil {
 		return "", dirErr
 	}
