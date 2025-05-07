@@ -10,7 +10,7 @@ type commands struct {
 }
 
 // command methods
-func (c *commands) retisger(name string, f func(*state, command) error) {
+func (c *commands) register(name string, f func(*state, command) error) {
 	c.registeredCommands[name] = f
 }
 func (c *commands) run(st *state, cmd command) error {

@@ -28,11 +28,32 @@ func main() {
 	cmds := commands{
 		registeredCommands: make(map[string]func(*state, command) error),
 	}
-	login := command{name: "login", args: os.Args[1:]}
-	register := command{name: "register", args: os.Args[1:]}
-	cmds.retisger("login", handleLogin)
-	cmds.retisger("register", handleRegister)
-	cmds
+	cmds.register("login", handleLogin)
+	cmds.register("register", handleRegister)
+	cmds.register("reset", handleReset)
+	cmds.register("users", handleUsers)
+	switch os.Args[1] {
+	case "users":
+		if err := cmds.run(&cfg, command{name: "users", args: os.Args[1:]}); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "reset":
+		if err := cmds.run(&cfg, command{name: "reset", args: os.Args[1:]}); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "login":
+		if err := cmds.run(&cfg, command{name: "login", args: os.Args[1:]}); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "register":
+		if err := cmds.run(&cfg, command{name: "register", args: os.Args[1:]}); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	}
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
