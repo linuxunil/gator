@@ -6,11 +6,10 @@ import (
 	"os"
 
 	"github.com/linuxunil/gator/internal/database"
-	"github.com/linuxunil/gator/internal/feed"
 )
 
 func handleAgg(st *state, cmd command) error {
-	rss, err := feed.FetchFeed(context.Background(), cmd.args[0])
+	rss, err := FetchFeed(context.Background(), cmd.args[0])
 	if err != nil {
 		return err
 	}
