@@ -32,7 +32,19 @@ func main() {
 	cmds.register("register", handleRegister)
 	cmds.register("reset", handleReset)
 	cmds.register("users", handleUsers)
+	cmds.register("agg", handleAgg)
+	cmds.register("addfeed", handleAddFeed)
 	switch os.Args[1] {
+	case "addfeed":
+		if err := cmds.run(&cfg, command{name: "addfeed", args: os.Args[1:]}); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "agg":
+		if err := cmds.run(&cfg, command{name: "agg", args: os.Args[1:]}); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	case "users":
 		if err := cmds.run(&cfg, command{name: "users", args: os.Args[1:]}); err != nil {
 			fmt.Println(err)
