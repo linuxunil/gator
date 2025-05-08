@@ -1,13 +1,11 @@
 
 -- +goose up
 CREATE TABLE feeds(
-		name TEXT NOT NULL,
-	url TEXT UNIQUE NOT NULL,
-	user_id int NOT NULL,
-	CONSTRAINT fk_user
-	FOREIGN KEY(user_id)
-	references users(id) 
-	ON DELETE CASCADE
+	id UUID PRIMARY KEY,
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	name TEXT NOT NULL,
+	url TEXT UNIQUE NOT NULL
 
 );
 -- +goose down

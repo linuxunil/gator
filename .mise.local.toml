@@ -1,2 +1,0 @@
-[env]
-DB_URL = "postgres://disco:@localhost:5432/gator?sslmode=disable"

@@ -30,7 +30,7 @@ func checkErr(err error) {
 func main() {
 	// Check that enough arguments were given
 	if len(os.Args) < 2 {
-		fmt.Println("Note enough arguments")
+		fmt.Println("Not enough arguments")
 		os.Exit(1)
 	}
 	// Set program state
@@ -55,6 +55,7 @@ func main() {
 	cmds.register("users", handleUsers)
 	cmds.register("agg", handleAgg)
 	cmds.register("addfeed", handleAddFeed)
+	cmds.register("feeds", handleFeeds)
 	// Grab the user provided command and it's arguments
 	cmd := os.Args[1]
 	args := os.Args[2:]

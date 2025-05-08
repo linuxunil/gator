@@ -1,5 +1,5 @@
 [env]
-# DB_URL = "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable"
+DB_URL = "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable"
 
 [hooks]
 enter = "mise i -q"
@@ -23,6 +23,10 @@ dir = "{{cwd}}/sql/schema"
 
 [tasks."migrate:down"]
 run = "goose postgres {{env.DB_URL}} down"
+dir = "{{cwd}}/sql/schema"
+
+[tasks."goose:reset"]
+run = "goose postgres {{env.DB_URL}} reset"
 dir = "{{cwd}}/sql/schema"
 
 [tasks."generate:sql"]
