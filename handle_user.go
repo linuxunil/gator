@@ -25,7 +25,7 @@ func handleUsers(st *state, cmd command) error {
 }
 func handleRegister(st *state, cmd command) error {
 	usr, err := st.db.CreateUser(context.Background(), database.CreateUserParams{
-		ID:        int32(uuid.New()[0]),
+		ID:        uuid.New(),
 		CreatedAt: time.Now().UTC(),
 		UpdatedAt: time.Now().UTC(),
 		Name:      cmd.args[0]})
@@ -37,21 +37,17 @@ func handleRegister(st *state, cmd command) error {
 	return nil
 
 }
-func handleFollow(st *state, cmd command) error {
-	feed, usr := st.db.CreateFeed(context.Background(), database.CreateFeedParams{})
-}
+
 func handleLogin(st *state, cmd command) error {
-	if len(cmd.args) < 2 {
-		return fmt.Errorf("Usage: login <username>\n")
-	}
-	usr, err := st.db.GetUserByName(context.Background(), cmd.args[1])
+	checkArgs(len(cmd.args), 1)
+	usr, err := st.db.GetUserByName(context.Background(), cmd.args[0])
 	if err != nil {
 		return err
 	}
-	if usr.Name != cmd.args[1] {
+	if usr.Name != cmd.args[0] {
 		os.Exit(1)
 	}
-	if err := st.cfg.SetUser(cmd.args[1]); err != nil {
+	if err := st.cfg.SetUser(cmd.args[0]); err != nil {
 		return err
 	}
 	fmt.Println("Username set")

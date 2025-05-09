@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 
+	"github.com/google/uuid"
 	"github.com/linuxunil/gator/internal/database"
 )
 
@@ -36,9 +38,11 @@ func handleAddFeed(st *state, cmd command) error {
 	checkArgs(len(cmd.args), 2)
 	usr, err := st.db.GetUserByName(context.Background(), st.cfg.Username)
 	checkErr(err)
-	f, err := st.db.CreateFeed(context.Background(),
-		database.CreateFeedParams{Name: cmd.args[0], Url: cmd.args[1], UserID: usr.ID})
+	feed, err := st.db.CreateFeed(context.Background(),
+		database.CreateFeedParams{ID: uuid.New(), Name: cmd.args[0], Url: cmd.args[1], UserID: usr.ID})
 	checkErr(err)
-	fmt.Println(f)
+	_, err = st.db.CreateFeedFollow(context.Background(), database.CreateFeedFollowParams{ID: uuid.New(), CreatedAt: time.Now().UTC(), UpdatedAt: time.Now().UTC(), UserID: usr.ID, FeedID: feed.ID})
+	checkErr(err)
+	fmt.Printf("user %v added %v", usr.Name, feed.Name)
 	return nil
 }

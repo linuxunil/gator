@@ -1,5 +1,5 @@
 [env]
-DB_URL = "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable"
+# DB_URL = "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable"
 
 [hooks]
 enter = "mise i -q"
