@@ -1,5 +1,5 @@
 [env]
-# DB_URL = "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable"
+DB_URL = "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable"
 
 [hooks]
 enter = "mise i -q"
@@ -12,10 +12,12 @@ go = "latest"
 [tasks."build"]
 description = "Build the app"
 run = "go build ."
+dir = "{{cwd}}"
 
-[tasks."boom"]
-depends = ["migrate:down"]
-depends_post = ["migrate:up"]
+[tasks."test"]
+depends = ["build", "migrate:up", "generate:sql"]
+run = "./test.sh"
+dir = "{{cwd}}"
 
 [tasks."migrate:up"]
 run = "goose postgres {{env.DB_URL}} up"

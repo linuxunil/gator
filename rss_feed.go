@@ -25,7 +25,6 @@ type RSSItem struct {
 }
 
 func FetchFeed(ctx context.Context, feedURL string) (*RSSFeed, error) {
-	feedURL = "https://www.wagslane.dev/index.xml"
 	req, err := http.NewRequestWithContext(ctx, "GET", feedURL, nil)
 	if err != nil {
 		return &RSSFeed{}, err
